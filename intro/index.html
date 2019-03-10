@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title> Be FullStack Vue </title>
+    <script src="../vue.js"></script>
+</head>
+<body>
+    <div id="app">
+            <h1>{{ hello }}</h1>
+            <hr>
+            <button v-on:click="changeMe()"> Change Me </button>
+
+            <h2> Counter : {{ counter }}</h2>
+            <button v-on:click="counter += 1"> increase </button>
+            <button v-on:click="counter -= 1"> decreate </button>
+
+            <h2> Link </h2>
+            <a href="http://yudhistira.id" v-on:click="link()"> yudhistira.id </a>
+
+            <h2> Test Form </h2>
+            <form v-on:submit.prevent >
+                <input v-on:keyup.enter="info('Thanks for '+$event.target.value)" type="text"> 
+            </form> 
+
+            <h2> V-Bind </h2>
+            <div>MyName is  {{ name }}</div>
+            <img v-bind:src="imgSrc" height="150" width="150"  />
+            <input type="text" v-model="name" placeholder="write your name ..." />
+    </div>
+    <script>
+        var app = new Vue({
+            el:"#app",
+            data:{
+                hello:"Hello World",
+                imgSrc:"https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1200px-React-icon.svg.png",
+                counter:0,
+                name:""
+
+            },
+            methods:{
+                changeMe() {
+                    this.hello = "Iam Dimas"
+                },
+
+                // increase() {
+                //     this.counter += 1
+                // },
+                // decrease() {
+                //     this.counter -= 1
+                // }
+                info(value) {
+                    alert(value)
+                },
+                link() {
+                    return confirm("Are you sure want to leaving this page ?")
+                }
+            },
+            computed:{
+
+            }
+        })
+
+        setTimeout(function(){
+            app.imgSrc = "https://vuejs.org/images/logo.png"
+        },1000)
+    </script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>List</title>
+    <script src="../vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h1> List </h1>
+        <label> Insert new Language </label>
+        <input type="text" v-model="newlang" v-on:keydown.enter="add">
+        <hr>
+        <ul >
+            <li v-for="(list,index) in langs" v-bind:key="index">{{ index+1 }} - {{ list }}</li>
+        </ul>
+
+        <h2> Object </h2>
+        <table border="1" cellpadding=10>
+           
+            <tr v-for="(value, key) in book">
+                <td style="width:200px"> {{ key }} </td>
+                <td> {{ value }}</td>
+            </tr>
+        </table>
+        </ul>
+    </div>
+    <script>
+        var app = new Vue({
+            el:"#app",
+            data:{
+                newlang:"",
+                langs:[
+                    "C - iam the first and the best",
+                    "C++ - Iam C but have class",
+                    "Java - Iam everywhere",
+                    "PHP - Iam neet for web development"
+                ],
+                book:{
+                    id:99,
+                    title:"C++ High Performance",
+                    description:"Write your code that scales accross CPU registers, multi-core, machine clusters",
+                    authors:"Victor Sehr, Bjorn Andrist",
+                    publish_year:2018,
+                    price:100000
+                }
+            },
+            methods:{
+                add(){
+                  
+                    if(this.newlang.length > 5) {
+                        this.langs.push(this.newlang)
+                        this.newlang = ""
+                    } else {
+                        alert("lang must be atleast 5 chars")
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>
