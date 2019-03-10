@@ -4,9 +4,158 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Belajar Component</title>
+    <script src="../vue.js"></script>
+    <style>
+        .card {
+            background:#efefef;
+            border:1px solid #ddd;
+            margin-right: 5px;
+            padding: 5px;
+            width:200px;
+            float: left;
+        }
+    </style>
 </head>
 <body>
-    
+    <div id="app">
+        <h1> Belajar Component</h1>
+        <hr>
+        <p> Hi, my Name is {{ name }}</p>
+        <componenta>  
+            <p> This is the content of component a</p>
+        </componenta>
+        <componentb></componentb>
+        <componentc></componentc>
+
+        <h2> Component Lanjutan </h2>
+        <hr>
+        <h3> Selected : {{ selectedBook }}</h3>
+
+       
+        <book
+        v-for="item in books"
+            :key="item.id"
+            :item="item"
+            @selected="selectedBook = $event"
+        >
+            
+        </book>
+
+       
+    </div>
+    <div>
+
+    </div>
+    <script>
+        Vue.component("componenta",{
+            template:`<div> {{ message }} 
+                <slot></slot>
+            </div>`,
+            data(){
+                return {
+                    message:"This is component A"
+                }
+            }
+        })
+    </script>
+    <script>
+        Vue.component("componentb",{
+            template:`<div> {{ message }}</div>`,
+            data() {
+                return {
+                    message:"This is component B"
+                }
+            }
+        })
+    </script>
+    <script>
+        var componentc = {
+            template:`<p>this is component c,
+            di registrasikan khusus untuk app vue object
+            </p>`
+        }
+
+        var componentd = {
+            template:`<p> this is component d </p>`
+        }
+    </script>
+    <script>
+
+        var BookComponent = {
+            data() {
+                return {
+                    classCard:"card",
+                   
+                }
+            },
+            props:["item"],
+            template:`
+                <div :class='classCard'>
+                    <h3> {{ item.title }}</h3>
+                    <img :src="'../images/'+item.image" style="width:100%">
+                    <p v-html="item.description"></p>
+                    <button v-on:click="$emit('selected',item.title)"> Select </button>
+                </div>
+            `
+        }
+
+        var app = new Vue({
+            el:"#app",
+            data:{
+                name:"Aries Dimas Yudhistira",
+                selectedBook:"",
+                books : [
+                    {
+                        id: 99,
+                        title: 'C++ High Performance',
+                        description: 'Write code that scales across CPU registers, multi-core, and machine clusters',
+                        authors: 'Viktor Sehr, Björn Andrist',
+                        publish_year: 2018,
+                        price: 100000,
+                        image: 'c++-high-performance.png'
+                    },
+                    {
+                        id: 100,
+                        title: 'Mastering Linux Security and Hardening',
+                        description: 'A comprehensive guide to mastering the art of preventing your Linux system from getting compromised',
+                        authors: 'Donald A. Tevault',
+                        publish_year: 2018,
+                        price: 125000,
+                        image: 'mastering-linux-security-and-hardening.jpg'
+                    },
+                    {
+                        id: 101,
+                        title: 'Mastering PostgreSQL 10',
+                        description: 'Master the capabilities of PostgreSQL 10 to efficiently manage and maintain your database',
+                        authors: 'Hans-Jürgen Schönig',
+                        publish_year: 2016,
+                        price: 90000,
+                        image: 'mastering-postgresql-10.png'
+                    },
+                    {
+                        id: 102,
+                        title: 'Python Programming Blueprints',
+                        description: 'How to build useful, real-world applications in the Python programming language',
+                        authors: 'Daniel Furtado, Marcus Pennington',
+                        publish_year: 2017,
+                        price: 75000,
+                        image: 'python-programming-blueprint.jpg'
+                    },
+                ]
+
+            },
+            methods:{
+                test(){
+                    alert("hello test")
+                }
+            },
+            components: {
+                "componentc":componentc, // registrasikan component 
+                "componentd":componentd,
+                "book":BookComponent
+            }
+        })
+    </script>
 </body>
 </html>

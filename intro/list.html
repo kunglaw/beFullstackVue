@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>List</title>
     <script src="../vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script> 
 </head>
 <body>
     <div id="app">
@@ -16,6 +17,16 @@
         <ul >
             <li v-for="(list,index) in langs" v-bind:key="index">{{ index+1 }} - {{ list }}</li>
         </ul>
+
+        <h2> Data From Axios => Backendless</h2>
+        <hr> 
+
+        <div v-for="post in posts">
+            <div :key="post.objectId">
+                <b>{{ post.title }}</b>
+                <p>{{ post.description }}</p>
+            </div>
+        </div>
 
         <h2> Object </h2>
         <table border="1" cellpadding=10>
@@ -30,8 +41,16 @@
     <script>
         var app = new Vue({
             el:"#app",
+            mounted() {
+                axios.get("https://api.backendless.com/11BFB750-A260-981E-FF14-A1EEBD735000/4B647189-4634-88F4-FF7A-45BE60E6B000/data/Posts?order=desc")
+                    .then( res => {
+                        // console.log( res.data )
+                        this.posts = res.data
+                    })
+            },
             data:{
                 newlang:"",
+                posts:[],
                 langs:[
                     "C - iam the first and the best",
                     "C++ - Iam C but have class",
