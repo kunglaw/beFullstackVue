@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title> Form </title>
+    <script src="../vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div>
+            <h2> Belajar Form </h2>
+            <label>Title </label><br>
+            <input type="text" name="title" v-model="title">
+            <br>
+            <label>Description</label><br>
+            <textarea name="description" v-model="description"></textarea>
+            <br>
+            Paket <br>
+            <label>
+                <input type="radio" name="paket" value="laravel" v-model="paket">
+                Buku Laravel
+            </label>
+            <label>
+                <input type="radio" name="paket" value="vue" v-model="paket">
+                Buku VueJS
+            </label>
+            <label>
+                <input type="radio" name="paket" value="laravel+vue" v-model="paket">
+                Buku Laravel + Vue
+            </label>
+            <p>{{ paket }} </p>
+            <label> Category </label><br>
+            <select name="category" v-model="category">
+                <option disabled value=""> Please Select One of Category </option>
+                <option>Graphics Programming</option>
+                <option>Mobile Application Development</option>
+                <option>Virtual and Augmented Reality</option>
+            </select>
+            <p>{{ category }}</p>
+            <p> Marrital Satus </p>
+            <label>
+                <input type="checkbox" v-model="marrital" > {{ marrital }}
+            </label>
+            <p> Hobbies </p>
+            <label>
+                <input type="checkbox" v-model="hobbies" value="code">
+                Coding
+            </label>       
+            <label>
+                <input type="checkbox" v-model="hobbies" value="reading">
+                Reading
+            </label>    
+            <label>
+                <input type="checkbox" v-model="hobbies" value="games">
+                Playing Games 
+            </label> 
+            <p>{{ hobbies }}</p>
+        </div>
+    </div>
+    <script>
+        var app = new Vue({
+            el:"#app",
+            data:{
+                title:"",
+                description:"",
+                paket:"",
+                category:"",
+                marrital:false,
+                hobbies:[]
+            },
+            methods: {
+              
+            },
+        })
+    </script>
+</body>
+</html>
